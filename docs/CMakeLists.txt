@@ -16,8 +16,11 @@ set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
 
 
-file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR}) #Doxygen won't create this for us
-doxygen_add_docs(doxygen ${DOXYGEN_INPUT_DIR} ALL WORKING_DIRECTORY ${DOXYGEN_OUTPUT_DIR} CONFIG_FILE ${DOXYFILE_OUT})
+doxygen_add_docs(doxygen 
+                 ${DOXYGEN_INPUT_DIR} 
+                 ALL 
+                 WORKING_DIRECTORY ${DOXYGEN_OUTPUT_DIR} 
+                 CONFIG_FILE ${DOXYFILE_OUT})
 
 
 
