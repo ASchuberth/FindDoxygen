@@ -1,6 +1,10 @@
+/** 
+Example source file for generating simple doxygen documentation
+*/
 #include <iostream>
 
 namespace ds {
+
 /// @brief  struct 1 \f$\lambda\f$
 struct struct1 {
 
