@@ -14,9 +14,41 @@ CMake Generator: Ninja Multi-Config (Ubuntu) and Visual Studio 17 2022 (Windows)
 Doxygen Version: 1.9.8 and 1.14.0
 
 
+## Setting up Doxygen settings using CMake variables
+
+Older versions of CMake did not have doxygen_add_docs(), so a custom CMake command
+was created to run Doxygen.  This required configuring the custom Doxyfile with
+CMake.  However, now the Doxygen settings can be controlled in CMake without
+configuring a custom Doxyfile.  Instead, just create CMake variables with the
+prefix "DOXYGEN_" and the name of the Doxygen setting name in the Doxyfile.
+
+When done this way, only the target name and input directory need to be supplied to
+doxygen_add_docs().  
+
+For Example,
+
+Doxyfile:
+```
+GENERATE_LATEX = NO
+
+...
+
+USE_MATHJAX = NO
+```
+> [!NOTE]
+> This Doxyfile is just to show example Doxygen setting names.  There is no need to create 
+> this Doxyfile when using this method. CMake will generate the Doxyfile internally.
 
 
+CMakeLists.txt:
+```
+set(DOXYGEN_GENERATE_LATEX "YES")
+set(DOXYGEN_USE_MATHJAX "YES")
 
+doxygen_add_docs(doxygen 
+                 ${DOXYGEN_INPUT_DIR})
+
+```
 
 ## Setting up Doxygen using custom Doxyfile
 
@@ -86,40 +118,3 @@ doxygen_add_docs(doxygen
                  WORKING_DIRECTORY ${DOXYGEN_OUTPUT_DIR} 
                  CONFIG_FILE ${DOXYFILE_OUT})
 ```
-
-## Setting up Doxygen settings using CMake variables
-
-Older versions of CMake did not have doxygen_add_docs(), so a custom CMake command
-was created to run Doxygen.  This required configuring the custom Doxyfile with
-CMake.  However, now the Doxygen settings can be controlled in CMake without
-configuring a custom Doxyfile.  Instead, just create CMake variables with the
-prefix "DOXYGEN_" and the name of the Doxygen setting name in the Doxyfile.
-
-When done this way, only the target name and input directory need to be supplied to
-doxygen_add_docs().  
-
-For Example,
-
-Doxyfile:
-```
-GENERATE_LATEX = NO
-
-...
-
-USE_MATHJAX = NO
-```
-> [!NOTE]
-> This Doxyfile is just to show example Doxygen setting names.  There is no need to create 
-> this Doxyfile when using this method. CMake will generate the Doxyfile internally.
-
-
-CMakeLists.txt:
-```
-set(DOXYGEN_GENERATE_LATEX "YES")
-set(DOXYGEN_USE_MATHJAX "YES")
-
-doxygen_add_docs(doxygen 
-                 ${DOXYGEN_INPUT_DIR})
-
-```
-
