@@ -1,3 +1,12 @@
+# Git
+.git/
+
+# Cmake build directory
+build/
+
+# Vscode 
+.vscode/
+
 # Prerequisites
 *.d
 
